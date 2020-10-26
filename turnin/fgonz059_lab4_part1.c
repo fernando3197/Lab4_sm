@@ -17,7 +17,6 @@ unsigned char tempA;
 unsigned char tempB;
 
 void Tick(){
-	
 	unsigned char A0 = PINA & 0x01;
 	switch(state){
 		case Start:
@@ -37,7 +36,6 @@ void Tick(){
 			break;
 		default:
 			break;			
-		}			
 	} // Transitions
 	
 	switch(state){
@@ -66,9 +64,9 @@ int main(void) {
 	state = Start;
 	
 	while(1){
-		tempA = PORTA;
+		tempA = PINA;
 		Tick();
+		PORTB = tempB;
 	}       
-    }
     return 1;
 }

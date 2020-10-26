@@ -17,58 +17,22 @@ unsigned char tempA;
 unsigned char tempB;
 
 void Tick(){
-	
-	unsigned char A0 = PINA & 0x01;
-	switch(state){
-		case Start:
-			state = S0;
-			break;
-		case S0:
-			state = A0 ? S1 : S0;
-			break;
-		case S1:
-			state = !A0 ? S2 : S1;
-			break;
-		case S2:
-			state = A0 ? S3 : S2;
-			break;
-		case S3:
-			state = !A0 ? S0 : S3;
-			break;
-		default:
-			break;			
-		}			
-	} // Transitions
-	
-	switch(state){
-		case S0:
-			break;
-		case S1:
-			tempB = 0x02;
-			break;
-		case S2:
-			break;
-		case S3:
-			B = 0x01;
-			break;
-		default:
-			break;
 		
-	} // State actions
 }
 
 int main(void) {
     /* Insert DDR and PORT initializations */
 	PINA = 0x00; PORTA = 0xFF;
-	PINB = 0xFF; PORTB = 0x00;
+	PINC = 0xFF; PORTC = 0x00;
 	
- 	B = 0x01; // Initialize outputs
+ 	B = 0x07; // Initialize outputs
 	state = Start;
 	
 	while(1){
-		tempA = PORTA;
+		tempA = PINA;
 		Tick();
-	}       
-    }
+		PORTC = tempC;
+	}          
+ }
     return 1;
 }
